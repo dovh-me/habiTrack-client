@@ -1,50 +1,266 @@
 <!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, please refer to the docs:
-            https://cordova.apache.org/docs/en/latest/
-        Some notes:
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-        <meta name="color-scheme" content="light dark">
-        <link rel="stylesheet" href="css/index.css">
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src * 'self' data: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta
+      name="viewport"
+      content="initial-scale=1, width=device-width, viewport-fit=cover"
+    />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="stylesheet" href="lib/jquery.mobile-1.4.5/themes/hot-pink.css" />
+    <link
+      rel="stylesheet"
+      href="lib/jquery.mobile-1.4.5/themes/jquery.mobile.icons.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="lib/jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css"
+    />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/select-overrides.css" />
+    <link rel="stylesheet" href="css/custom-icons.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <!-- libs -->
+    <script src="lib/jquery-1.12.4.min.js"></script>
+    <script src="lib/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>HabiTrack</title>
+  </head>
+  <body>
+    <!-- sign up page -->
+    <section data-role="page" id="login-page" data-theme="a">
+      <!-- content section -->
+      <section data-role="main" class="ui-content content-section">
+        <h2 class="page-title">Login</h2>
+        <div class="product-logo-container"></div>
+        <form class="custom-form">
+          <input
+            type="text"
+            name="username-input"
+            id="username-input"
+            placeholder="Username"
+            value=""
+            data-role="none"
+          />
+          <input
+            type="password"
+            name="password-input"
+            id="password-input"
+            placeholder="Password"
+            value=""
+            data-role="none"
+          />
+          <div class="form-text-field">
+            Don&apos;t have an account yet?
+            <a href="#signup-page" data-transition="slidefade">Sign Up</a>
+          </div>
+
+          <input
+            type="submit"
+            name="submit-btn"
+            id="login-submit-btn"
+            value="Login"
+            class="primary-btn"
+            data-role="none"
+          />
+        </form>
+        <div class="form-text-field">
+          Temporary link to the verification page
+          <a href="#email-verification-page" data-transition="slidefade"
+            >Email Verification Page</a
+          >
         </div>
-        <script src="cordova.js"></script>
-        <script src="js/index.js"></script>
-    </body>
+      </section>
+
+      <footer
+        data-role="footer"
+        data-position="fixed"
+        data-theme="a"
+        class="custom-footer"
+      >
+        Copyrights &copy; 2023 HabiTrack App
+      </footer>
+    </section>
+    <!-- -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+
+    <!-- signup page -->
+    <section data-role="page" id="signup-page" data-theme="a">
+      <!-- content section -->
+      <section data-role="main" class="ui-content content-section">
+        <h2 class="page-title">Sign Up</h2>
+        <div class="product-logo-container"></div>
+        <form class="custom-form">
+          <input
+            type="text"
+            name="username-input"
+            id="username-input"
+            placeholder="Username"
+            value=""
+            data-role="none"
+          />
+          <input
+            type="password"
+            name="password-input"
+            id="password-input"
+            placeholder="Password"
+            value=""
+            data-role="none"
+          />
+          <input
+            type="password"
+            name="confirm-password-input"
+            id="confirm-password-input"
+            placeholder="Confirm Password"
+            value=""
+            data-role="none"
+          />
+          <select
+            name="custom-select-gender-login"
+            id="custom-select-gender-login"
+            data-native-menu="false"
+            class="ui-nodisc-icon custom-select"
+            data-icon="custom-arrow-down"
+          >
+            <option>Gender</option>
+            <option value="1">Other</option>
+            <option value="2">Male</option>
+            <option value="3">Female</option>
+          </select>
+          <div class="form-text-field">
+            Already have an account?
+            <a href="#login-page" data-transition="slidefade">Login</a>
+          </div>
+
+          <input
+            type="submit"
+            name="submit-btn"
+            id="signup-submit-btn"
+            value="Sign Up"
+            class="primary-btn"
+            data-role="none"
+          />
+        </form>
+      </section>
+
+      <footer
+        data-role="footer"
+        data-position="fixed"
+        data-theme="a"
+        class="custom-footer"
+      >
+        Copyrights &copy; 2023 HabiTrack App
+      </footer>
+    </section>
+    <!-- -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- email verification page -->
+    <section data-role="page" id="email-verification-page" data-theme="a">
+      <!-- content section -->
+      <section data-role="main" class="ui-content content-section">
+        <h2 class="page-title">Email Verification</h2>
+        <p class="description">
+          Please verify your email before using the application. A 4-digit
+          verification code has been sent to your email.
+        </p>
+        <form id="email-verification-form" class="custom-form">
+          <div class="verification-input-group">
+            <input
+              type="text"
+              name="verification-input"
+              id="verification-input-1"
+              data-role="none"
+            />
+            <input
+              type="text"
+              name="verification-input"
+              id="verification-input-2"
+              data-role="none"
+            />
+            <input
+              type="text"
+              name="verification-input"
+              id="verification-input-3"
+              data-role="none"
+            />
+            <input
+              type="text"
+              name="verification-input"
+              id="verification-input-4"
+              data-role="none"
+            />
+          </div>
+          <div class="form-text-field">
+            Try a different account?
+            <a href="#login-page" data-transition="slidefade">Login</a>
+          </div>
+
+          <input
+            type="submit"
+            name="submit-btn"
+            id="signup-input"
+            value="Verify Email"
+            class="primary-btn"
+            data-role="none"
+          />
+        </form>
+      </section>
+
+      <footer
+        data-role="footer"
+        data-position="fixed"
+        data-theme="a"
+        class="custom-footer"
+      >
+        Copyrights &copy; 2023 HabiTrack App
+      </footer>
+    </section>
+    <!-- -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- home page -->
+    <section data-role="page" id="email-verification-page" data-theme="a">
+      <!-- content section -->
+      <section data-role="main" class="ui-content content-section">
+        <h3 class="welcome-text">Email Verification</h3>
+        <p class="description">
+          Please verify your email before using the application. A 4-digit
+          verification code has been sent to your email.
+        </p>
+      </section>
+
+      <footer
+        data-role="footer"
+        data-position="fixed"
+        data-theme="a"
+        class="custom-footer"
+      >
+        Copyrights &copy; 2023 HabiTrack App
+      </footer>
+    </section>
+    <!-- -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <script src="cordova.js"></script>
+    <script type="module" src="js/index.mjs"></script>
+  </body>
 </html>
