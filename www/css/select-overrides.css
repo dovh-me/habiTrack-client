@@ -25,6 +25,8 @@
   box-shadow: none;
   border: none;
   padding: 20px;
+  text-align: left;
+  font-weight: 400;
 }
 
 [id^="custom-select"][id$="listbox-screen"] {

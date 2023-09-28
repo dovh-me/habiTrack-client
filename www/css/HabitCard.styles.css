@@ -1,0 +1,83 @@
+:root {
+  --no-progress: #797979;
+  --done: rgb(29, 172, 29);
+  --wont-do: rgb(202, 38, 38);
+  --no-progress-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  --done-shadow: 4px 4px 23px -11px rgba(50, 214, 64, 0.75);
+  --wont-do-shadow: 4px 4px 23px -11px rgba(212, 47, 47, 0.75);
+}
+
+.habit-card {
+  padding: 10px;
+  display: flex;
+  border-radius: 10px;
+  box-shadow: var(--no-progress-shadow);
+  max-width: 800px;
+  width: 100%;
+  min-width: 350px;
+  box-sizing: border-box;
+  background-color: white;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.habit-card:focus {
+  background-color: azure;
+}
+
+.habit-details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  font-size: 1.1rem;
+}
+
+.habit-card .title-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.habit-card .title-section .habit-color-elem {
+  background-color: #797979; /* this the default color */
+  width: 1rem;
+  height: 1rem;
+  border-radius: 5px;
+}
+
+.habit-status {
+  font-size: 0.9rem;
+}
+
+.habit-summary {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  font-size: 0.9rem;
+}
+
+.habit-card .habit-name {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.status-done {
+  color: var(--done);
+}
+.status-wont-do {
+  color: var(--wont-do);
+}
+.status-no-progress {
+  color: var(--no-progress);
+}
+
+.icon-done {
+  box-shadow: var(--done-shadow);
+}
+.icon-wont-do {
+  box-shadow: var(--wont-do-shadow);
+}
