@@ -22,5 +22,10 @@ function onDeviceReady() {
     loginPageHandler(requestHandler, store, pages);
     signUpHandler(requestHandler, store, pages);
     emailVerificationPageHandler(requestHandler, store, pages);
+
+    // Show the datepicker when field is clicked
+    $(".date-picker-field").on("click", function (e) {
+      e.currentTarget.showPicker();
+    });
   });
 }

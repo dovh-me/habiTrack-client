@@ -26,19 +26,20 @@
     <link rel="stylesheet" href="css/select-overrides.css" />
     <link rel="stylesheet" href="css/custom-icons.css" />
     <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/HabitCard.styles.css" />
     <!-- libs -->
     <script src="lib/jquery-1.12.4.min.js"></script>
     <script src="lib/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <title>HabiTrack</title>
   </head>
   <body>
-    <!-- sign up page -->
+    <!-- login page -->
     <section data-role="page" id="login-page" data-theme="a">
       <!-- content section -->
       <section data-role="main" class="ui-content content-section">
         <h2 class="page-title">Login</h2>
         <div class="product-logo-container"></div>
-        <form class="custom-form">
+        <form id="login-form" class="custom-form">
           <input
             type="text"
             name="username-input"
@@ -63,7 +64,6 @@
           <input
             type="submit"
             name="submit-btn"
-            id="login-submit-btn"
             value="Login"
             class="primary-btn"
             data-role="none"
@@ -99,7 +99,7 @@
       <section data-role="main" class="ui-content content-section">
         <h2 class="page-title">Sign Up</h2>
         <div class="product-logo-container"></div>
-        <form class="custom-form">
+        <form id="signup-form" class="custom-form">
           <input
             type="text"
             name="username-input"
@@ -144,7 +144,6 @@
           <input
             type="submit"
             name="submit-btn"
-            id="signup-submit-btn"
             value="Sign Up"
             class="primary-btn"
             data-role="none"
@@ -179,25 +178,25 @@
         <form id="email-verification-form" class="custom-form">
           <div class="verification-input-group">
             <input
-              type="text"
+              type="number"
               name="verification-input"
               id="verification-input-1"
               data-role="none"
             />
             <input
-              type="text"
+              type="number"
               name="verification-input"
               id="verification-input-2"
               data-role="none"
             />
             <input
-              type="text"
+              type="number"
               name="verification-input"
               id="verification-input-3"
               data-role="none"
             />
             <input
-              type="text"
+              type="number"
               name="verification-input"
               id="verification-input-4"
               data-role="none"
@@ -211,7 +210,6 @@
           <input
             type="submit"
             name="submit-btn"
-            id="signup-input"
             value="Verify Email"
             class="primary-btn"
             data-role="none"
@@ -236,13 +234,49 @@
     <!--  -->
     <!-- home page -->
     <section data-role="page" id="home-page" data-theme="a">
+      <div class="welcome-section">
+        <h3 class="welcome-text">
+          Welcome back <span class="welcome-user-text"></span>,
+        </h3>
+        <p class="description">Let&apos;s track your progress!</p>
+      </div>
+      <div>
+        <!-- using the native datepicker of the browser -->
+        <input class="date-picker-field" type="date" data-role="none" />
+      </div>
       <!-- content section -->
       <section data-role="main" class="ui-content content-section">
-        <h3 class="welcome-text">Email Verification</h3>
-        <p class="description">
-          Please verify your email before using the application. A 4-digit
-          verification code has been sent to your email.
-        </p>
+        <div class="habit-cards-container">
+          <article tabindex="1" class="habit-card">
+            <section class="habit-details">
+              <div class="title-section">
+                <div class="habit-color-elem"></div>
+                <h3 class="habit-name">Meditating</h3>
+              </div>
+              <div class="habit-status status-no-progress">No Progress</div>
+              <div class="habit-summary">
+                <div class="habit-goal summary-item">
+                  <span class="summary-label">Goal: </span>
+                  <span class="goal-value">2</span>
+                  <span class="goal-unit">hrs</span>
+                </div>
+                <div class="habit-progress summary-item">
+                  <span class="summary-label">Progress: </span>
+                  <span class="goal-value">--</span>
+                  <span class="goal-unit">hrs</span>
+                </div>
+              </div>
+            </section>
+            <section class="habit-status-icon">
+              <img
+                src="img/status-no-progress.png"
+                alt="no progress"
+                width="40"
+                height="40"
+              />
+            </section>
+          </article>
+        </div>
       </section>
 
       <footer
