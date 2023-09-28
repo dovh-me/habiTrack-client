@@ -1,0 +1,4 @@
+.ui-icon-custom-arrow-down::after {
+  background-image: url("/img/down-arrow.png");
+  background-size: 18px 18px;
+}

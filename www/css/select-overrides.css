@@ -1,0 +1,70 @@
+/* 
+* This file is dedicated to implemented custom styles for the pre built 
+* select menu stylings
+*/
+:root {
+  --primary: #134cde;
+}
+
+.custom-form .ui-select {
+  box-sizing: border-box;
+  width: 100%;
+  color: black;
+  border-radius: 10px;
+  background-color: white;
+  border-radius: 10px !important;
+  -webkit-box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  border: none;
+  font-size: 1rem;
+}
+
+.custom-form .ui-select .ui-btn {
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  padding: 20px;
+}
+
+[id^="custom-select"][id$="listbox-screen"] {
+  background-color: rgba(0, 0, 0, 0.596) !important;
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+}
+
+[id^="custom-select"][id$="listbox-popup"] {
+  top: unset !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  max-width: unset !important;
+  background-color: white !important;
+  border-radius: 15px 15px 0 0;
+}
+
+[id^="custom-select"][id$="listbox-popup"] .ui-header {
+  background-color: white !important;
+}
+
+[id^="custom-select"][id$="listbox-popup"] .ui-title {
+  font-size: 1rem;
+  font-weight: 400;
+  background-color: transparent;
+}
+
+[id^="custom-select"][id$="listbox-popup"] .ui-selectmenu-list li a {
+  border: none !important;
+  border-bottom: solid 1px rgba(200, 200, 200, 0.93) !important;
+  border-radius: 0;
+  background-color: white;
+  padding: 15px;
+}
+
+[id^="custom-select"][id$="listbox-popup"] .ui-btn-active {
+  background-color: var(--primary) !important;
+}
+
+[id^="custom-select"][id$="listbox-popup"] .ui-btn:focus {
+  box-shadow: 0px 0px 12px var(--primary);
+}
