@@ -7,7 +7,6 @@
  */
 export function segmentedInputHandler(selector = "input.code-input") {
   const inputElements = [...document.querySelectorAll(selector)];
-  console.log("Got the input elements", inputElements);
 
   inputElements.forEach((ele, index) => {
     ele.addEventListener("keydown", (e) => {
