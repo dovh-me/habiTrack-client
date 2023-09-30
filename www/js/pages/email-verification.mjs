@@ -1,4 +1,4 @@
-import { RequestHandler } from "../Store.mjs";
+import { RequestHandler } from "../RequestHandler.js";
 import {
   segmentedInputHandler,
   getValueFromSegmentedInputs,
