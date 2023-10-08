@@ -44,12 +44,24 @@ export class RequestHandler {
     const route = "user";
     const method = "GET";
 
-    return await this.#sendRequest(this.#getUrl(route), false, {
+    return await this.#sendRequest(this.#getUrl(route), true, {
       method,
     });
   }
 
-  async sendSignUpRequest() {}
+  async sendSignUpRequest(user) {}
+
+  async getHabitWithLog(date = "", habitId = "") {
+    const route = `habit/${habitId}`;
+    const query = {
+      date,
+    };
+    const method = "GET";
+
+    return await this.#sendRequest(this.#getUrl(route, query), true, {
+      method,
+    });
+  }
 
   async getAllHabitsWithLogs(date = "") {
     const route = "habit/all";
@@ -58,8 +70,28 @@ export class RequestHandler {
     };
     const method = "GET";
 
-    return await this.#sendRequest(this.#getUrl(route, query), false, {
+    return await this.#sendRequest(this.#getUrl(route, query), true, {
       method,
+    });
+  }
+
+  async sendCreateHabitRequest(habit) {
+    const route = "habit";
+    const method = "POST";
+
+    return await this.#sendRequest(this.#getUrl(route), true, {
+      method,
+      data: JSON.stringify(habit),
+    });
+  }
+
+  async sendUpsertHabitLogRequest(patch) {
+    const route = "habit-log/upsert";
+    const method = "PATCH";
+
+    return await this.#sendRequest(this.#getUrl(route), true, {
+      method,
+      data: JSON.stringify(patch),
     });
   }
 
@@ -71,7 +103,7 @@ export class RequestHandler {
     const route = "user";
     const method = "GET";
 
-    return await this.#sendRequest(this.#getUrl(route), false, {
+    return await this.#sendRequest(this.#getUrl(route), true, {
       method,
     }).then((result) => {
       // set the flag to false
@@ -115,7 +147,7 @@ export class RequestHandler {
     return new Promise((resolve, reject) => {
       $.ajax({
         beforeSend(xhr) {
-          if (isAuthEnabled) return;
+          if (!isAuthEnabled) return;
           xhr.setRequestHeader("Authorization", `Bearer ${token}`);
         },
         contentType: "application/json; charset=utf-8",

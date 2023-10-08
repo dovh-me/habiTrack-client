@@ -33,6 +33,15 @@ export const loginPageHandler = (requestHandler, store, pages) => {
     }
   });
 
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+
   $("#login-form").on("submit", function (e) {
     e.preventDefault();
 
@@ -60,6 +69,15 @@ export const loginPageHandler = (requestHandler, store, pages) => {
         alert("There was an error logging in", error);
       });
   });
+
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
 
   function onAuthSuccess() {
     const pageToNavigate = store.user.isVerified

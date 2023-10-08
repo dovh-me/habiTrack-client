@@ -1,12 +1,33 @@
 import { RequestHandler } from "../RequestHandler.js";
 import { HabitCard } from "../components/index.js";
+import { formatDate } from "../util/formatDate.js";
 
 /**
  *
  * @param {RequestHandler} requestHandler
  */
 export const homePageHandler = (requestHandler, store, pages) => {
-  const habitsContainerId = "#";
+  // const habitsContainerId = "#habit-cards-container";
+  const overlayClass = "show-overlay";
+  const datepickerSelector = pages["home"] + " .date-picker-field";
+
+  $("#cancel-create-habit-button").on("click", function (e) {
+    e.preventDefault();
+
+    const pageToNavigate = pages.home;
+    $.mobile.changePage(pageToNavigate, {
+      transition: "fade",
+    });
+  });
+
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
 
   $(pages.home).on("pagebeforeshow", function (e) {
     if (store?.user) {
@@ -14,19 +35,48 @@ export const homePageHandler = (requestHandler, store, pages) => {
       $(".welcome-user-text").text(name);
     }
 
-    const datepicker = $("#home-habit-datepicker");
-    console.log("datepicker", datepicker);
+    const datepicker = $(datepickerSelector);
+
     // set the default datepicker value
     const now = new Date();
-    const day = ("0" + now.getDate()).slice(-2);
-    const month = ("0" + (now.getMonth() + 1)).slice(-2);
-    const today = now.getFullYear() + "-" + month + "-" + day;
+    const today = formatDate(now);
 
-    // get all the habits of the user for the today's date
-    requestHandler.getAllHabitsWithLogs(today).then(({ habits }) => {
+    // Set the max date to today
+    // TODO : Needs to be handled from the backend as well
+    datepicker.prop("max", today);
+    datepicker.val(today);
+    datepicker.trigger("change");
+  });
+
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+
+  $(datepickerSelector).on("change", function (e) {
+    const date = $(e.currentTarget).val();
+    console.log("datepicker change event triggered", date);
+
+    $(pages["home"]).addClass(overlayClass);
+    requestHandler.getAllHabitsWithLogs(date).then(({ habits }) => {
       loadHabitCards(habits, ".habit-cards-container");
+      $(pages["home"]).removeClass(overlayClass);
+      store.selectedDate = date;
     });
   });
+
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
 
   /**
    *
@@ -45,6 +95,15 @@ export const homePageHandler = (requestHandler, store, pages) => {
     $(selector).html(habitCards);
   }
 };
+
+//----------------
+//----------------
+//----------------
+//----------------
+//----------------
+//----------------
+//----------------
+//----------------
 
 /**
  *
