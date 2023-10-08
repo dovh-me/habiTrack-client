@@ -1,0 +1,69 @@
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.header-button-container {
+  height: max(44px, 5vh);
+  width: min(25%, 200px);
+}
+
+.create-habit-button {
+  width: 100%;
+  height: 100%;
+  margin-right: 20px;
+  font-weight: normal;
+}
+
+.cancel-button {
+  box-sizing: border-box;
+  width: 44px !important;
+  height: 44px !important;
+  background-color: transparent !important;
+  border: 0;
+  box-shadow: none;
+  transition: background-color 0.5s;
+  margin-right: auto;
+  font-weight: normal;
+}
+
+.cancel-button::after {
+  background-size: 30px;
+}
+
+.cancel-button:hover {
+  background-color: rgb(230, 230, 230) !important;
+}
+
+.cancel-button:focus {
+  background-color: rgba(204, 204, 204, 0.925) !important;
+}
+
+.create-habit-form {
+  width: 100%;
+}
+
+.first-group {
+  gap: 5px;
+  font-size: 1rem !important;
+}
+
+.habit-name-input {
+  flex: 1 1 100px;
+}
+
+hr {
+  border: solid 1px rgb(167, 167, 167);
+}
+
+.transparent-select .ui-btn {
+  background-color: transparent !important;
+  box-shadow: none;
+  border: 0;
+  font-weight: normal;
+}
+
+.transparent-select .ui-select {
+  flex-grow: 1;
+}
