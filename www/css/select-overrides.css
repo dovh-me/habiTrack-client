@@ -61,6 +61,7 @@
   border-radius: 0;
   background-color: white;
   padding: 15px;
+  font-weight: normal;
 }
 
 [id^="custom-select"][id$="listbox-popup"] .ui-btn-active {
