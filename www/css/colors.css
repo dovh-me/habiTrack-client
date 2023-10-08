@@ -1,0 +1,8 @@
+:root {
+  --no-progress: #797979;
+  --done: rgb(29, 172, 29);
+  --wont-do: rgb(202, 38, 38);
+  --no-progress-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  --done-shadow: 4px 4px 23px -11px rgba(50, 214, 64, 0.75);
+  --wont-do-shadow: 4px 4px 23px -11px rgba(212, 47, 47, 0.75);
+}
