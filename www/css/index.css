@@ -1,8 +1,14 @@
+@font-face {
+  font-family: "Inter";
+  src: url("../fonts/Inter-VariableFont.ttf");
+}
+
 :root {
   --primary: #134cde;
 }
 
 * {
+  font-family: "Inter", sans-serif !important;
   -webkit-tap-highlight-color: rgba(
     0,
     0,
@@ -12,6 +18,7 @@
 }
 
 body {
+  font-family: "Inter", sans-serif;
   -webkit-touch-callout: none; /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none; /* prevent webkit from resizing text to fit */
   -webkit-user-select: none; /* prevent copy paste, to allow, change 'none' to 'text' */
@@ -71,6 +78,7 @@ body {
   border: none;
   transition: background-color 1s;
   cursor: pointer;
+  font-weight: normal;
 }
 
 .primary-btn:hover {
@@ -79,6 +87,27 @@ body {
 
 .primary-btn:focus {
   background-color: #113796 !important;
+}
+
+.link-btn {
+  background-color: transparent !important;
+  color: var(--primary) !important;
+  border: none;
+  box-sizing: border-box;
+  transition: background-color 1s;
+  cursor: pointer;
+  font-weight: normal;
+  box-shadow: none;
+  font-size: 1rem;
+}
+
+.link-btn:hover {
+  text-decoration: underline !important;
+}
+
+.link-btn:focus {
+  color: #113796 Im !important;
+  box-shadow: none !important;
 }
 
 .custom-form {
@@ -171,4 +200,39 @@ body {
   color: black;
   box-sizing: border-box;
   outline: none;
+}
+
+.input-group {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.input-group .custom-input,
+.input-group select {
+  background-color: transparent;
+  padding: 10px;
+  font-weight: normal;
+  border-radius: 10px;
+  display: flex;
+  box-sizing: border-box;
+  border: 0;
+  color: rgb(32, 32, 32);
+}
+
+.error {
+  color: red;
+  font-size: small !important   ;
+  padding: 5px;
+}
+
+.done {
+  color: var(--done);
+}
+.not-done {
+  color: var(--wont-do);
+}
+.no-progress {
+  color: var(--no-progress);
 }
