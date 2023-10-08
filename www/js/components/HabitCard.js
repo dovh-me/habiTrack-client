@@ -1,16 +1,14 @@
 export const HabitCard = (habit, store, pages) => {
-  const { name, color, goal, goalUnits, progress, status } = habit;
+  const { name, color, goal, goalUnits, progress, isDone } = habit;
   const statusImages = {
     wontDo: "img/status-wont-do.png",
     noProgress: "img/status-no-progress.png",
     done: "img/status-done.png",
   };
 
-  const statusMap = {
-    wontDo: "Won't Do",
-    noProgress: "No Progress",
-    done: "Done",
-  };
+  const statusClass = isDone ? "status done" : "status not-done";
+  const statusText = isDone ? "Done" : "Not Done";
+
   const el = $(`
         <article tabindex="0" class="habit-card">
             <section class="habit-details">
@@ -19,7 +17,8 @@ export const HabitCard = (habit, store, pages) => {
                   color ?? "#A2A2A2"
                 }"></div>
                 <h3 class="habit-name">${name ?? "--"}</h3>
-              </div>${statusMap[status] ?? "--"}</div>
+              </div>
+              <div class="${statusClass}">${statusText}</div>
               <div class="habit-summary">
                 <div class="habit-goal summary-item">
                   <span class="summary-label">Goal: </span>
@@ -35,7 +34,9 @@ export const HabitCard = (habit, store, pages) => {
             </section>
             <section class="habit-status-icon">
               <img
-                src="${statusImages[status] ?? statusImages["noProgress"]}"
+                src="${
+                  isDone ? statusImages["done"] : statusImages["noProgress"]
+                }"
                 alt="no progress"
                 width="40"
                 height="40"
@@ -45,7 +46,7 @@ export const HabitCard = (habit, store, pages) => {
     `);
   el.on("click", function () {
     store.clickedHabit = habit;
-    $.mobile.changePage(pages.home, {
+    $.mobile.changePage(pages.viewHabit, {
       transition: "fade",
     });
   });
