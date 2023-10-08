@@ -2,3 +2,47 @@
   background-image: url("/img/down-arrow.png");
   background-size: 18px 18px;
 }
+
+.ui-icon-custom-add::after {
+  background-image: url("/img/add.png");
+  background-size: 80% 80%;
+}
+
+.ui-icon-custom-add-large::after {
+  background-image: url("/img/add-large.png");
+  background-size: 100px;
+}
+
+/* previous icon */
+.ui-icon-custom-previous::after {
+  background-image: url("/img/previous.png");
+  background-size: 18px 18px;
+}
+
+.ui-icon-custom-previous-large::after {
+  background-image: url("/img/previous-large.png");
+  background-size: 100px;
+}
+/* -- */
+
+/* next icon */
+.ui-icon-custom-next::after {
+  background-image: url("/img/next.png");
+  background-size: 18px 18px;
+}
+
+.ui-icon-custom-next-large::after {
+  background-image: url("/img/next-large.png");
+  background-size: 100px;
+}
+/* -- */
+
+.ui-icon-custom-cancel::after {
+  background-image: url("/img/cancel.png");
+  background-size: 18px 18px;
+}
+
+.ui-icon-custom-edit::after {
+  background-image: url("/img/edit.png");
+  background-size: 18px 18px;
+}
