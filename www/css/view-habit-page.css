@@ -1,0 +1,114 @@
+#view-habit-page .ui-content {
+  gap: 10px;
+}
+
+.edit-button {
+  box-sizing: border-box;
+  width: 44px !important;
+  height: 44px !important;
+  background-color: transparent !important;
+  border: 0;
+  box-shadow: none;
+  transition: background-color 0.5s;
+  margin-left: auto;
+  font-weight: normal;
+}
+
+.edit-button::after {
+  background-size: 20px;
+}
+
+.edit-button:hover {
+  background-color: rgb(230, 230, 230) !important;
+}
+
+.edit-button:focus {
+  background-color: rgba(204, 204, 204, 0.925) !important;
+}
+
+.view-habit-summary {
+  padding: 1.5rem;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  justify-content: space-evenly;
+}
+
+.view-habit-summary .summary-labels,
+.view-habit-summary .summary-values {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.view-habit-summary .summary-labels > div,
+.view-habit-summary .summary-values > div {
+  text-transform: capitalize;
+}
+
+.view-habit-summary .summary-values > div::before {
+  content: ": ";
+  color: black;
+  font-weight: normal;
+}
+
+.view-habit-summary .status {
+  font-weight: bold;
+}
+
+.view-habit-summary .status.done {
+  color: var(--done);
+}
+.view-habit-summary .status.not-done {
+  color: var(--wont-do);
+}
+.view-habit-summary .status.no-progress {
+  color: var(--no-progress);
+}
+
+.success-button {
+  background-color: var(--done) !important;
+}
+
+.success-button:hover {
+  background-color: rgb(0, 139, 35) !important;
+}
+
+.notes-section {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+.notes-section .notes-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notes-section .notes-title > div,
+.notes-section .notes-content {
+  font-size: 1rem;
+}
+
+.notes-section .edit-button {
+  margin: 0;
+}
+
+.gray-out {
+  color: gray;
+}
