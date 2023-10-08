@@ -1,0 +1,2 @@
+- Make sure to install cordova-android@10.0.0 to run the application without any build failures
+- `cordova-plugin-androidx-adapter` is required to build the applications (research a bit more about what the plugin does)
