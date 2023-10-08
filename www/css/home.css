@@ -21,3 +21,40 @@
   gap: 10px;
   justify-content: center;
 }
+
+.create-habit-floating-wrapper {
+  position: absolute;
+  bottom: min(5%, 20px);
+  right: min(5%, 20px);
+  height: 60px;
+  width: 60px;
+}
+
+.create-habit-floating-wrapper .ui-btn {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  border-radius: 50% !important;
+}
+
+#home-page {
+  overflow: hidden;
+}
+
+#home-page .ui-content {
+  box-sizing: border-box;
+  max-height: 78vh;
+  overflow-y: auto;
+  justify-content: flex-start;
+}
+
+.show-overlay::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(117, 117, 117, 0.363);
+  z-index: 1000;
+}
