@@ -1,0 +1,30 @@
+.custom-input.color-input {
+  padding: 0 !important;
+  border: 0 !important;
+  height: 60px;
+  cursor: pointer;
+}
+
+.color-input::-webkit-color-swatch-wrapper {
+  padding: 0 !important;
+  height: 100%;
+}
+
+.color-input::-webkit-color-swatch,
+.color-input::-moz-color-swatch {
+  border: 0 !important;
+  border-radius: 10px !important;
+  height: 60px;
+  width: 60px;
+}
+
+.color-input::-moz-color-swatch,
+.color-input::-moz-focus-inner {
+  border: 0 !important;
+  height: 100%;
+}
+
+.color-input::-moz-focus-inner {
+  padding: 0 !important;
+  height: 100%;
+}
