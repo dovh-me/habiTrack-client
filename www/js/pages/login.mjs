@@ -45,10 +45,7 @@ export const loginPageHandler = (requestHandler, store, pages) => {
   $("#login-form").on("submit", function (e) {
     e.preventDefault();
 
-    const credentials = {
-      email: "test123@gmail.com",
-      password: "test123",
-    };
+    const credentials = getLoginFormCredentials();
 
     requestHandler
       .sendLoginRequest(credentials)
@@ -89,5 +86,15 @@ export const loginPageHandler = (requestHandler, store, pages) => {
     $.mobile.changePage(pageToNavigate, {
       transition: "fade",
     });
+  }
+
+  function getLoginFormCredentials() {
+    const emailInput = $("#login-email-input");
+    const passwordInput = $("#login-password-input");
+
+    return {
+      email: emailInput.val(),
+      password: passwordInput.val(),
+    };
   }
 };
