@@ -30,6 +30,14 @@ export const homePageHandler = (requestHandler, store, pages) => {
   //----------------
 
   $(pages.home).on("pagebeforeshow", function (e) {
+    // redirect to login page if not authenticated
+    if (!requestHandler.isAuthenticated) {
+      $.mobile.changePage(pages["login"], {
+        transition: "fade",
+      });
+      return;
+    }
+
     if (store?.user) {
       const name = getName(store?.user?.name);
       $(".welcome-user-text").text(name);

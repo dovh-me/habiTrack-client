@@ -120,7 +120,9 @@ export class RequestHandler {
    */
   #loadToken() {
     const token = localStorage.getItem("token");
-    this.setToken(token);
+    if (token) {
+      this.setToken(token);
+    }
   }
 
   #getToken() {

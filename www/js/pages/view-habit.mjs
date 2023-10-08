@@ -13,6 +13,14 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
   const overlayClass = "show-overlay";
 
   $(pages.viewHabit).on("pagebeforeshow", function (e) {
+    // redirect to login page if not authenticated
+    if (!requestHandler.isAuthenticated) {
+      $.mobile.changePage(pages["login"], {
+        transition: "fade",
+      });
+      return;
+    }
+
     if (!store?.clickedHabit) {
       $.mobile.changePage(pages.home, {
         transition: "slide",
