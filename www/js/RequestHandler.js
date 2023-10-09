@@ -1,5 +1,6 @@
 const config = {
   baseUrl: "https://urchin-app-qxcfm.ondigitalocean.app/api",
+  // baseUrl: "http://localhost:3000/api",
 };
 
 export class RequestHandler {
@@ -37,6 +38,14 @@ export class RequestHandler {
     return await this.#sendRequest(this.#getUrl(route), false, {
       method,
       data: JSON.stringify(credentials),
+    }).then((result) => {
+      // set isAuthenticated to true
+      this.isAuthenticated = result.resultCode === "00047";
+      // set the token in the request handler
+      this.setToken(result.accessToken);
+      delete result.accessToken;
+
+      return result;
     });
   }
 
@@ -49,7 +58,15 @@ export class RequestHandler {
     });
   }
 
-  async sendSignUpRequest(user) {}
+  async sendSignUpRequest(user) {
+    const route = "user";
+    const method = "POST";
+
+    return await this.#sendRequest(this.#getUrl(route), false, {
+      method,
+      data: JSON.stringify(user),
+    });
+  }
 
   async getHabitWithLog(date = "", habitId = "") {
     const route = `habit/${habitId}`;
@@ -95,13 +112,21 @@ export class RequestHandler {
     });
   }
 
-  async getHabitSummary() {}
+  async getHabitSummary(habitId, date) {
+    const route = `habit/summary/${habitId}`;
+    const method = "GET";
+    const query = {
+      date,
+    };
 
-  async logHabit() {}
+    return await this.#sendRequest(this.#getUrl(route, query), true, {
+      method,
+    });
+  }
 
   async logout() {
-    const route = "user";
-    const method = "GET";
+    const route = "user/logout";
+    const method = "POST";
 
     return await this.#sendRequest(this.#getUrl(route), true, {
       method,
