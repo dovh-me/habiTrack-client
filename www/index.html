@@ -32,10 +32,14 @@
     <link rel="stylesheet" href="css/home.css" />
     <link rel="stylesheet" href="css/view-habit-page.css" />
     <link rel="stylesheet" href="css/create-habit-page.css" />
+    <link rel="stylesheet" href="css/habit-summary-page.css" />
     <!-- libs -->
     <script src="lib/jquery-1.12.4.min.js"></script>
     <script src="lib/jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script src="lib/jquery-validation-1.19.5/jquery.validate.min.js"></script>
+    <script src="lib/echarts.js"></script>
+    <script src="lib/dayjs-1.11.10/dayjs.min.js"></script>
+
     <title>HabiTrack</title>
   </head>
   <body>
@@ -107,41 +111,46 @@
         <div class="product-logo-container"></div>
         <form id="signup-form" class="custom-form">
           <input
+            type="email"
+            name="signup-email-input"
+            id="signup-email-input"
+            placeholder="Email"
+            value=""
+            data-role="none"
+          />
+          <input
             type="text"
-            name="username-input"
-            id="username-input"
-            placeholder="Username"
+            name="signup-name-input"
+            id="signup-name-input"
+            placeholder="Full Name"
             value=""
             data-role="none"
           />
           <input
             type="password"
-            name="password-input"
-            id="password-input"
+            name="signup-password-input"
+            id="signup-password-input"
             placeholder="Password"
             value=""
             data-role="none"
           />
           <input
             type="password"
-            name="confirm-password-input"
-            id="confirm-password-input"
+            name="signup-confirm-password-input"
+            id="signup-confirm-password-input"
             placeholder="Confirm Password"
             value=""
             data-role="none"
           />
-          <select
-            name="custom-select-gender-login"
-            id="custom-select-gender-login"
-            data-native-menu="false"
-            class="ui-nodisc-icon custom-select"
-            data-icon="custom-arrow-down"
-          >
-            <option>Gender</option>
-            <option value="1">Other</option>
-            <option value="2">Male</option>
-            <option value="3">Female</option>
-          </select>
+          <input
+            type="text"
+            name="signup-username-input"
+            id="signup-username-input"
+            placeholder="Username"
+            value=""
+            data-role="none"
+          />
+
           <div class="form-text-field">
             Already have an account?
             <a href="#login-page" data-transition="slidefade">Login</a>
@@ -249,10 +258,15 @@
         </a>
       </div>
       <div class="welcome-section">
-        <h3 class="welcome-text">
-          Welcome back <span class="welcome-user-text"></span>,
-        </h3>
-        <p class="description">Let&apos;s track your progress!</p>
+        <div class="header">
+          <h3 class="welcome-text">
+            Welcome back <span class="welcome-user-text"></span>,
+          </h3>
+          <p class="description">Let&apos;s track your progress!</p>
+        </div>
+        <div class="ui-nodisc-icon">
+          <button id="logout-button" class="logout-button ui-btn ui-btn-icon-notext ui-icon-custom-logout"></button>
+        </div>
       </div>
       <div class="full-width-datepicker-container">
         <button class="previous-date"></button>
@@ -480,6 +494,71 @@
         <button id="view-progress-button" class="link-btn">
           View Progress
         </button>
+      </section>
+
+      <footer
+        data-role="footer"
+        data-position="fixed"
+        data-theme="a"
+        class="custom-footer"
+      >
+        Copyrights &copy; 2023 HabiTrack App
+      </footer>
+    </section>
+    <!-- -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- habit summary page -->
+    <section data-role="page" id="habit-summary-page" data-theme="a">
+      <div class="header-section">
+        <div class="header-button-container ui-nodisc-icon">
+          <button
+            id="cancel-habit-summary-button"
+            class="ui-btn cancel-button ui-btn ui-icon-custom-cancel ui-btn-icon-notext"
+            data-role="button"
+          ></button>
+        </div>
+        <h2 class="header-text">Summary - <span class="habit-name"></span></h2>
+        <div class="header-button-container ui-nodisc-icon"></div>
+      </div>
+      <hr />
+      <div class="full-width-datepicker-container">
+        <button class="previous-date"></button>
+        <div class="date-display">Today</div>
+        <button class="next-date"></button>
+        <!-- using the native datepicker of the browser -->
+        <input
+          id="habit-summary-datepicker"
+          class="date-picker-field"
+          type="date"
+          data-role="none"
+        />
+      </div>
+      <!-- content section -->
+      <section data-role="main" class="ui-content content-section">
+        <div class="chart-container"></div>
+        <div class="habit-progress-summary">
+          <div class="summary-labels">
+            <div class="label">Repetition</div>
+            <div class="label">Average Expected</div>
+            <div class="label">Average Progress</div>
+            <div class="label">Total Expected</div>
+            <div class="label">Total Progress</div>
+            <div class="label">Streak</div>
+          </div>
+          <div class="summary-values">
+            <div class="repetition"></div>
+            <div class="avg-expected"></div>
+            <div class="avg-progress"></div>
+            <div class="tot-expected"></div>
+            <div class="tot-progress"></div>
+            <div class="streak"></div>
+          </div>
+        </div>
+        </div>
       </section>
 
       <footer
