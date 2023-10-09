@@ -77,6 +77,21 @@ export const homePageHandler = (requestHandler, store, pages) => {
     });
   });
 
+  $("#logout-button").on("click", function (e) {
+    e.preventDefault();
+
+    requestHandler.logout().then(() => {
+      // reset the store - no option to remember user credentials when logged out at the moment
+      Object.keys(store).forEach((prop) => {
+        store[prop] = undefined;
+      });
+      // change the page
+      $.mobile.changePage(pages["login"], {
+        transition: "fade",
+      });
+    });
+  });
+
   //----------------
   //----------------
   //----------------
@@ -94,7 +109,7 @@ export const homePageHandler = (requestHandler, store, pages) => {
   function loadHabitCards(habits, selector = ".habit-cards-container") {
     const habitCards = habits.map((habit) => {
       const { log, ...habitTemp } = habit;
-      const prepHabit = { ...(log[0] ?? {}), ...habitTemp };
+      const prepHabit = { log: log[0] ?? {}, ...habitTemp };
       // prepare the habit object
       return HabitCard(prepHabit, store, pages);
     });
