@@ -2,7 +2,7 @@
   "name": "com.example.habitrack",
   "displayName": "HabiTrack",
   "version": "1.0.0",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
+  "description": "A Habit Tracking Application. Helping you to get better everyday!",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
