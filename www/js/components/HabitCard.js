@@ -1,5 +1,6 @@
 export const HabitCard = (habit, store, pages) => {
-  const { name, color, goal, goalUnits, progress, isDone } = habit;
+  const { name, color, goal, goalUnits, log } = habit;
+  const { progress, isDone } = log;
   const statusImages = {
     wontDo: "img/status-wont-do.png",
     noProgress: "img/status-no-progress.png",

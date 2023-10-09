@@ -70,10 +70,9 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
         })
         .then((result) => {
           $(pages.viewHabit).removeClass("show-overlay");
-          console.log("store", store);
           store.clickedHabit = {
             ...store.clickedHabit,
-            ...result.resultMessage.habitLog,
+            log: result.resultMessage.habitLog,
           };
           loadFieldValues();
           // show the success alert
@@ -120,10 +119,9 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
         })
         .then((result) => {
           $(pages.viewHabit).removeClass("show-overlay");
-          console.log("store", store);
           store.clickedHabit = {
             ...store.clickedHabit,
-            ...result.resultMessage.habitLog,
+            log: result.resultMessage.habitLog,
           };
           loadFieldValues();
           // show the success alert
@@ -174,10 +172,9 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
         })
         .then((result) => {
           $(pages.viewHabit).removeClass("show-overlay");
-          console.log("store", store);
           store.clickedHabit = {
             ...store.clickedHabit,
-            ...result.resultMessage.habitLog,
+            log: result.resultMessage.habitLog,
           };
           loadFieldValues();
           // show the success alert
@@ -239,16 +236,8 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
     $(pages["viewHabit"]).addClass(overlayClass);
     requestHandler.getHabitWithLog(date, habit._id).then(({ habit }) => {
       const { logs = [], ...rest } = habit;
-      console.log(
-        "before setting clickedHabit",
-        JSON.stringify(store.clickedHabit)
-      );
-      store.clickedHabit = { ...(logs?.[0] ?? {}), ...rest };
-      console.log(
-        "after setting clickedHabit",
-        JSON.stringify(store.clickedHabit)
-      );
 
+      store.clickedHabit = { log: logs?.[0] ?? {}, ...rest };
       loadFieldValues();
 
       $(pages["viewHabit"]).removeClass(overlayClass);
@@ -265,16 +254,35 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
   //----------------
   //----------------
 
+  $("#view-progress-button").on("click", function (e) {
+    e.preventDefault();
+
+    const pageToNavigate = pages["habitSummary"];
+    $.mobile.changePage(pageToNavigate, {
+      transition: "fade",
+    });
+  });
+
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+
   function loadFieldValues() {
     const habit = store.clickedHabit;
-    console.log("printing selected habit", habit);
+    console.log("habit within view-habit loadFieldValues", habit);
+
     // set the title field value
     const pageTitle = $(pages.viewHabit + " .header-text");
     pageTitle.text(habit.name);
 
     // load the other relevant fields
     const statusField = $(pages.viewHabit + " .status");
-    const isHabitDone = habit.isDone; // this is a property available in the log. Verify the property exists
+    const isHabitDone = habit.log.isDone; // this is a property available in the log. Verify the property exists
     statusField.text(isHabitDone ? "Done" : "Not Done");
     statusField
       .removeClass("done not-done")
@@ -282,7 +290,7 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
 
     const progressField = $(pages.viewHabit + " .progress");
     progressField.text(
-      `${habit.progress ?? 0} ${habit.goalUnits ?? "Unknown"}`
+      `${habit.log.progress ?? 0} ${habit.goalUnits ?? "Unknown"}`
     );
 
     const goalField = $(pages.viewHabit + " .goal");
@@ -292,17 +300,19 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
     repetitionField.text(habit.repetition ?? "Unknown");
 
     const notesField = $(pages.viewHabit + " .notes-section .notes-content");
-    const hasNotes = habit.notes ?? false;
+    const hasNotes = habit.log.notes ?? false;
     notesField.removeClass("gray-out");
     if (!hasNotes) {
       notesField.addClass("gray-out");
     }
     notesField.text(
-      hasNotes ? habit.notes : "No notes yet. Use the edit button to add notes."
+      hasNotes
+        ? habit.log.notes
+        : "No notes yet. Use the edit button to add notes."
     );
 
     // disable the complete progress button if the habit log is marked as done
-    const completeProgressButtonStatus = habit.progress >= habit.goal;
+    const completeProgressButtonStatus = habit.log.progress >= habit.goal;
 
     const completeProgressButton = $("#complete-progress-button");
     completeProgressButton.prop("disabled", completeProgressButtonStatus);
