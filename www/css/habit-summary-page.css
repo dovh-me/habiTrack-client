@@ -1,0 +1,50 @@
+.chart-container,
+.habit-progress-summary {
+  height: 300px;
+  max-width: 400px;
+  width: 400px;
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  box-sizing: border-box;
+  display: flex;
+}
+.habit-progress-summary {
+  margin-top: 20px;
+  height: auto;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.habit-name {
+  text-transform: capitalize;
+}
+
+.habit-progress-summary .summary-labels,
+.habit-progress-summary .summary-values {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.habit-progress-summary .summary-labels > div,
+.habit-progress-summary .summary-values > div {
+  text-transform: capitalize;
+}
+
+.habit-progress-summary .summary-values > div::before {
+  content: ": ";
+  color: black;
+  font-weight: normal;
+}
+
+.done {
+  color: var(--done);
+}
+
+.status.not-done {
+  color: var(--wont-do);
+}
