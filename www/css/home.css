@@ -1,5 +1,9 @@
 .welcome-section {
   display: flex;
+  justify-content: space-between;
+}
+.welcome-section > .header {
+  display: flex;
   flex-direction: column;
   gap: 2;
   padding: 10px;
@@ -57,4 +61,28 @@
   height: 100%;
   background-color: rgba(117, 117, 117, 0.363);
   z-index: 1000;
+}
+
+.logout-button {
+  margin-right: auto;
+  padding: 5px;
+  width: 60px !important;
+  height: 60px !important;
+  background-color: transparent !important;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 10px;
+  transition: background-color 1s;
+  position: relative;
+  z-index: 1;
+  box-shadow: none;
+  margin-right: 10px;
+}
+
+.logout-button:hover {
+  background-color: rgb(163, 163, 163) !important;
+}
+
+.logout-button:focus {
+  background-color: rgb(255, 174, 174) !important;
 }
