@@ -2,6 +2,7 @@ import { RequestHandler } from "./RequestHandler.js";
 import { FullWidthDatePicker } from "./components/FullWidthDatePicker.js";
 import { createHabitPageHandler } from "./pages/create-habit.mjs";
 import { emailVerificationPageHandler } from "./pages/email-verification.mjs";
+import { habitSummaryPageHandler } from "./pages/habit-summary.mjs";
 import { homePageHandler } from "./pages/home.mjs";
 import { loginPageHandler } from "./pages/login.mjs";
 import { signUpHandler } from "./pages/signup.mjs";
@@ -15,6 +16,7 @@ const pages = {
   home: "#home-page",
   emailVerification: "#email-verification-page",
   viewHabit: "#view-habit-page",
+  habitSummary: "#habit-summary-page",
 };
 
 // load custom datepickers
@@ -59,7 +61,7 @@ emailVerificationPageHandler(requestHandler, store, pages);
 homePageHandler(requestHandler, store, pages);
 createHabitPageHandler(requestHandler, store, pages);
 viewHabitPageHandler(requestHandler, store, pages);
-
+habitSummaryPageHandler(requestHandler, store, pages);
 //----------------
 //----------------
 //----------------
@@ -75,9 +77,26 @@ document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
   function scheduleNotification() {
     cordova.plugins.notification.local.schedule({
+      id: 1,
       title: "Meditating",
       text: "Consistency is the key to develop habits",
-      trigger: { at: new Date() },
+      trigger: {
+        every: {
+          hour: 15,
+          minute: 0,
+        },
+      },
+    });
+    cordova.plugins.notification.local.schedule({
+      id: 2,
+      title: "SOmething",
+      text: "Consistency is the key to develop habits",
+      trigger: {
+        every: {
+          hour: 15,
+          minute: 0,
+        },
+      },
     });
   }
 
