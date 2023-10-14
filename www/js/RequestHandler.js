@@ -1,6 +1,6 @@
 const config = {
-  // baseUrl: "https://urchin-app-qxcfm.ondigitalocean.app/api",
-  baseUrl: "http://localhost:3000/api",
+  baseUrl: "https://urchin-app-qxcfm.ondigitalocean.app/api",
+  // baseUrl: "http://localhost:3000/api",
 };
 
 export class RequestHandler {
