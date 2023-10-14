@@ -32,6 +32,10 @@ export const signUpHandler = (requestHandler, store, pages) => {
     });
   });
 
+  $(pages.login).on("pagebeforeshow", function (e) {
+    validator.resetForm();
+  });
+
   function getSignupFormCredentials() {
     const nameInput = $("#signup-name-input");
     const emailInput = $("#signup-email-input");

@@ -1,4 +1,5 @@
 import { RequestHandler } from "../RequestHandler.js";
+import { AlertEntry } from "../components/AlertEntry.js";
 import { formatDate } from "../util/formatDate.js";
 
 /**
@@ -29,6 +30,9 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
 
     datepickerInput.val(store.selectedDate);
     datepickerInput.trigger("change");
+
+    // populate the alerts section
+    updateAlerts();
   });
 
   //----------------
@@ -58,6 +62,8 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
 
     try {
       const parsedInput = +userInput;
+      const date = datepickerInput.val();
+
       if (isNaN(parsedInput))
         throw new Error("Invalid input. Number required!");
 
@@ -65,7 +71,7 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
       requestHandler
         .sendUpsertHabitLogRequest({
           habitId: habit._id,
-          date: formatDate(new Date()),
+          date: date,
           progress: parsedInput,
         })
         .then((result) => {
@@ -107,6 +113,7 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
         transition: "slide",
       });
     }
+    const date = datepickerInput.val();
     const habit = store.clickedHabit;
 
     try {
@@ -114,7 +121,7 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
       requestHandler
         .sendUpsertHabitLogRequest({
           habitId: habit._id,
-          date: formatDate(new Date()),
+          date: date,
           progress: habit.goal,
         })
         .then((result) => {
@@ -254,6 +261,15 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
   //----------------
   //----------------
 
+  $("#edit-habit-page-button").on("click", function (e) {
+    e.preventDefault();
+
+    const pageToNavigate = pages["editHabit"];
+    $.mobile.changePage(pageToNavigate, {
+      transition: "fade",
+    });
+  });
+
   $("#view-progress-button").on("click", function (e) {
     e.preventDefault();
 
@@ -262,6 +278,101 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
       transition: "fade",
     });
   });
+
+  // Load the alerts
+  const createAlertPopup = $("#create-alert-dialog");
+  const addAlertButton = $("#alerts-add-button");
+  const cancelSubmitAlert = $("#cancel-alert-submit");
+  const submitCreateAlert = $("#create-alert-submit");
+  const alertTimeInput = $("#alert-time-input");
+  addAlertButton.on("click", function (e) {
+    e.preventDefault();
+
+    createAlertPopup.popup("open");
+  });
+
+  submitCreateAlert.on("click", function (e) {
+    e.preventDefault();
+
+    // close the popup
+    createAlertPopup.popup("close");
+
+    // get the input value
+    const [hours, minutes] = alertTimeInput?.val()?.split(":");
+
+    if (!hours || !minutes || !store.clickedHabit) return;
+
+    console.log("hours", hours, "minutes", minutes);
+    const timeObj = {
+      hour: hours,
+      minute: minutes,
+    };
+
+    // send create alert request
+    requestHandler
+      .sendCreateAlertRequest(timeObj, store.clickedHabit._id)
+      .then((result) => {
+        // don't execute any further if the resultCode is different from what is expected
+        if (result.resultCode !== "00180") return;
+
+        // reset the input
+        alertTimeInput.val("");
+        store.notificationHandler.schedule(result.data);
+        alert("Successfully created the habit alert!");
+        createAlertPopup.popup("close");
+      })
+      .catch((error) => {
+        const message = "There was an error creating the alert!";
+        alert(message);
+        console.error(message, error);
+      });
+  });
+
+  cancelSubmitAlert.on("click", function (e) {
+    e.preventDefault();
+
+    createAlertPopup.popup("close");
+  });
+
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+
+  function updateAlerts() {
+    // remove all the previously added alert entries
+    $(".alert-entry").remove();
+
+    // get the habit alerts with the habitId
+    if (!store?.clickedHabit) return;
+
+    const habit = store.clickedHabit;
+    const alertContainer = $("#alert-entries");
+    const noAlertsPrompt = alertContainer.find("#no-alerts-prompt");
+
+    console.log("sending alerts request");
+    requestHandler
+      .getHabitAlerts(habit._id)
+      .then((result) => {
+        if (result.resultCode !== "00240") return;
+
+        const noAlertsDisplay = result?.data?.length > 0 ? "none" : "block";
+        noAlertsPrompt.css("display", noAlertsDisplay);
+
+        (result?.data ?? []).forEach((item) => {
+          return AlertEntry(item, requestHandler, store, alertContainer);
+        });
+      })
+      .catch((error) => {
+        const message = "There was an error retrieving habit alerts";
+        alert(message);
+        console.log(message, error);
+      });
+  }
 
   //----------------
   //----------------
@@ -274,7 +385,6 @@ export const viewHabitPageHandler = (requestHandler, store, pages) => {
 
   function loadFieldValues() {
     const habit = store.clickedHabit;
-    console.log("habit within view-habit loadFieldValues", habit);
 
     // set the title field value
     const pageTitle = $(pages.viewHabit + " .header-text");

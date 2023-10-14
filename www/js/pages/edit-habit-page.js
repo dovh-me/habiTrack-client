@@ -6,26 +6,25 @@ import { RequestHandler } from "../RequestHandler.js";
  * @param {*} store
  * @param {*} pages
  */
-export const createHabitPageHandler = (requestHandler, store, pages) => {
+export const editHabitPageHandler = (requestHandler, store, pages) => {
   const formFields = {
-    "#habit-color": {
+    "#edit-habit-color": {
       requestField: "color",
     },
-    "#habit-name": {
+    "#edit-habit-name": {
       requestField: "name",
     },
-    "#custom-select-habit-type": {
-      // requestField: ""
-    },
-    "#habit-goal-input": {
+    "#edit-habit-goal-input": {
       requestField: "goal",
-      isNumber: true,
     },
-    "#custom-select-habit-goal-unit": {
+    "#edit-custom-select-habit-goal-unit": {
       requestField: "goalUnits",
+      isSelect: true,
+      noUpdate: true,
     },
-    "#custom-select-habit-repetition": {
+    "#edit-custom-select-habit-repetition": {
       requestField: "repetition",
+      isSelect: true,
     },
   };
 
@@ -38,7 +37,7 @@ export const createHabitPageHandler = (requestHandler, store, pages) => {
   //----------------
   //----------------
 
-  const validator = registerCreateHabitFormValidator();
+  const validator = registerEditHabitFormValidator();
 
   // manually validating the form fields on change event
   // This is suppose to be default behaviour of the validator plugin
@@ -50,13 +49,18 @@ export const createHabitPageHandler = (requestHandler, store, pages) => {
     });
   });
 
-  $("#cancel-create-habit-button").on("click", function (e) {
+  $("#cancel-edit-habit-button").on("click", function (e) {
     e.preventDefault();
 
-    const pageToNavigate = pages.home;
+    const pageToNavigate = pages.viewHabit;
     $.mobile.changePage(pageToNavigate, {
       transition: "fade",
     });
+  });
+
+  $(pages.editHabit).on("pagebeforeshow", function (e) {
+    console.log("edit habit page loaded");
+    loadDefaultValues();
   });
 
   //----------------
@@ -68,7 +72,7 @@ export const createHabitPageHandler = (requestHandler, store, pages) => {
   //----------------
   //----------------
 
-  $("#create-habit-button").on("click", function (e) {
+  $("#edit-habit-button").on("click", function (e) {
     e.preventDefault();
 
     // validate the form on button click
@@ -77,24 +81,22 @@ export const createHabitPageHandler = (requestHandler, store, pages) => {
     // prevent the submit action if the entered values are invalid
     if (!validator.valid()) return;
 
-    // disable the create habit button if form inputs are valid
+    // disable the edit habit button if form inputs are valid
     $(e.currentTarget).prop("disabled", true);
 
-    const form = $("#create-habit-form");
+    const form = $("#edit-habit-form");
     // disable the form until the request has been processed
     const elements = form.find("input, button, a, select");
     elements.toArray().forEach((elem) => {
       $(elem).prop("disabled", true);
     });
 
-    // request map for create habit
-
     // get the values from the form
     const requestBody = {};
     Object.keys(formFields).forEach((field) => {
       const formField = formFields[field];
       const requestKey = formField?.requestField;
-      if (!requestKey) return;
+      if (!requestKey || formField?.noUpdate) return;
 
       // get value from the DOM element
       let value = $(field)?.val();
@@ -105,22 +107,20 @@ export const createHabitPageHandler = (requestHandler, store, pages) => {
     });
     // send the post request to the server using the requestHandler
 
+    const habit = store.clickedHabit;
     // TODO: implement custom alerts
     requestHandler
-      .sendCreateHabitRequest(requestBody)
+      .sendUpdateHabitRequest(requestBody, habit._id)
       .then(() => {
-        alert("Habit Created Successfully!");
+        alert("Habit Updated Successfully!");
 
         const pageToNavigate = pages.home;
-
-        form[0].reset();
-
         $.mobile.changePage(pageToNavigate, {
           transition: "fade",
         });
       })
       .catch((e) => {
-        const message = "There was an error creating the habit";
+        const message = "There was an error updating the habit";
         console.error(message, e);
         alert(message);
       })
@@ -133,6 +133,37 @@ export const createHabitPageHandler = (requestHandler, store, pages) => {
         });
       });
   });
+
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+  //----------------
+
+  function loadDefaultValues() {
+    const habit = store.clickedHabit;
+    if (!habit) return;
+
+    console.log("habit loading from edit page", habit);
+
+    Object.keys(formFields).forEach((field) => {
+      const formFieldEntry = formFields[field];
+      const fieldValue = habit[formFieldEntry.requestField];
+      if (!fieldValue) return;
+
+      const jField = $(field);
+      if (formFieldEntry.isSelect) {
+        jField.val(fieldValue);
+        jField.trigger("change");
+      } else {
+        jField.val(`${fieldValue}`);
+      }
+      console.log("field", field, fieldValue, $(field));
+    });
+  }
 };
 
 //----------------
@@ -144,8 +175,8 @@ export const createHabitPageHandler = (requestHandler, store, pages) => {
 //----------------
 //----------------
 
-function registerCreateHabitFormValidator() {
-  const validator = $("#create-habit-form").validate({
+function registerEditHabitFormValidator() {
+  const validator = $("#edit-habit-form").validate({
     highlight: function (element, errorClass, validClass) {
       $(element).removeClass(validClass);
       $(element.form)
@@ -159,19 +190,19 @@ function registerCreateHabitFormValidator() {
         .removeClass(errorClass);
     },
     rules: {
-      "habit-color": "required",
-      "habit-name": "required",
-      "custom-select-habit-type": {
+      "edit-habit-color": "required",
+      "edit-habit-name": "required",
+      "edit-custom-select-habit-type": {
         valueNotEquals: "Select Habit Type",
       },
-      "habit-goal-input": {
+      "edit-habit-goal-input": {
         number: true,
         required: true,
       },
-      "custom-select-habit-goal-unit": {
+      "edit-custom-select-habit-goal-unit": {
         valueNotEquals: "Select Goal Unit",
       },
-      "custom-select-habit-repetition": {
+      "edit-custom-select-habit-repetition": {
         valueNotEquals: "Select Repetition",
       },
     },

@@ -387,9 +387,9 @@ html .ui-body-a .ui-focus,
 html body .ui-group-theme-a .ui-focus,
 html head + body .ui-btn-a.ui-focus,
 html head + body .ui-body-a.ui-focus {
-  -webkit-box-shadow: 0 0 12px #ed1e79 /*{a-active-background-color}*/;
-  -moz-box-shadow: 0 0 12px #ed1e79 /*{a-active-background-color}*/;
-  box-shadow: 0 0 12px #ed1e79 /*{a-active-background-color}*/;
+  -webkit-box-shadow: 0 0 5px #6354e6 /*{a-active-background-color}*/;
+  -moz-box-shadow: 0 0 5px #6354e6 /*{a-active-background-color}*/;
+  box-shadow: 0 0 5px #6354e6 /*{a-active-background-color}*/;
 }
 /* B
 -----------------------------------------------------------------------------------------------------------*/
@@ -457,7 +457,7 @@ html body .ui-group-theme-b a:visited {
 html .ui-bar-b a:hover,
 html .ui-body-b a:hover,
 html body .ui-group-theme-b a:hover {
-  color: #f31767 /*{b-link-hover}*/;
+  color: #1e0cb9 /*{b-link-hover}*/;
 }
 .ui-page-theme-b a:active,
 html .ui-bar-b a:active,

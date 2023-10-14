@@ -69,3 +69,8 @@
   background-image: url("/img/logout-large.png");
   background-size: 80% 80%;
 }
+
+.ui-icon-custom-growth::after {
+  background-image: url("/img/growth.png");
+  background-size: 80% 80%;
+}

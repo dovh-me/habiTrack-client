@@ -82,26 +82,33 @@
   background-color: rgb(0, 139, 35) !important;
 }
 
-.notes-section {
+.notes-section,
+.alerts-section {
   display: flex;
   flex-direction: column;
   gap: 5px;
   background-color: white;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 10px;
   width: 100%;
   max-width: 600px;
   box-sizing: border-box;
+  -webkit-box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
+  box-shadow: 4px 4px 23px -11px rgba(0, 0, 0, 0.75);
 }
 
-.notes-section .notes-title {
+.notes-section .notes-title,
+.alerts-section .alerts-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .notes-section .notes-title > div,
-.notes-section .notes-content {
+.notes-section .notes-content,
+.alerts-section .alerts-title > div,
+.alerts-section .alerts-content {
   font-size: 1rem;
 }
 
@@ -111,4 +118,38 @@
 
 .gray-out {
   color: gray;
+}
+
+.alerts-content {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.alert-entry {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  max-width: 400px;
+  width: 100%;
+  background-color: rgb(228, 228, 228);
+  border-radius: 10px;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.alert-entry .time-container {
+  display: flex;
+  gap: 5px;
+}
+
+.delete-button:hover {
+  background-color: rgb(250, 91, 91);
+}
+
+.delete-button:focus {
+  background-color: rgb(233, 58, 58);
 }

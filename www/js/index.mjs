@@ -1,15 +1,20 @@
 import { RequestHandler } from "./RequestHandler.js";
 import { FullWidthDatePicker } from "./components/FullWidthDatePicker.js";
 import { createHabitPageHandler } from "./pages/create-habit.mjs";
+import { editHabitPageHandler } from "./pages/edit-habit-page.js";
 import { emailVerificationPageHandler } from "./pages/email-verification.mjs";
 import { habitSummaryPageHandler } from "./pages/habit-summary.mjs";
 import { homePageHandler } from "./pages/home.mjs";
 import { loginPageHandler } from "./pages/login.mjs";
 import { signUpHandler } from "./pages/signup.mjs";
 import { viewHabitPageHandler } from "./pages/view-habit.mjs";
+import { NotificationHandler } from "./util/NotificationHandler.js";
 
 const requestHandler = new RequestHandler();
-const store = {};
+const notificationHandler = new NotificationHandler();
+const store = {
+  notificationHandler: notificationHandler,
+};
 const pages = {
   login: "#login-page",
   signUp: "#signUp-page",
@@ -17,6 +22,8 @@ const pages = {
   emailVerification: "#email-verification-page",
   viewHabit: "#view-habit-page",
   habitSummary: "#habit-summary-page",
+  editHabit: "#edit-habit-page",
+  createHabit: "#create-habit-page",
 };
 
 // load custom datepickers
@@ -60,6 +67,7 @@ signUpHandler(requestHandler, store, pages);
 emailVerificationPageHandler(requestHandler, store, pages);
 homePageHandler(requestHandler, store, pages);
 createHabitPageHandler(requestHandler, store, pages);
+editHabitPageHandler(requestHandler, store, pages);
 viewHabitPageHandler(requestHandler, store, pages);
 habitSummaryPageHandler(requestHandler, store, pages);
 //----------------
@@ -75,48 +83,5 @@ habitSummaryPageHandler(requestHandler, store, pages);
 // See https://cordova.apache.org/docs/en/latest/cordova/events/events.html#deviceready
 document.addEventListener("deviceready", onDeviceReady, false);
 function onDeviceReady() {
-  function scheduleNotification() {
-    cordova.plugins.notification.local.schedule({
-      id: 1,
-      title: "Meditating",
-      text: "Consistency is the key to develop habits",
-      trigger: {
-        every: {
-          hour: 15,
-          minute: 0,
-        },
-      },
-    });
-    cordova.plugins.notification.local.schedule({
-      id: 2,
-      title: "SOmething",
-      text: "Consistency is the key to develop habits",
-      trigger: {
-        every: {
-          hour: 15,
-          minute: 0,
-        },
-      },
-    });
-  }
-
-  cordova.plugins.notification.local.hasPermission(function (granted) {
-    if (!granted) {
-      alert(
-        `It seems that we are unable to request permission to send notifications.\n\nPlease enable notifications from the settings for app manually. Sorry for the inconvenience caused.\n\nSettings > All Apps > HabitTrack > Notifications`
-      );
-      cordova.plugins.notification.local.requestPermission(function (granted) {
-        console.log(
-          "granted object in request permissions",
-          JSON.stringify(granted)
-        );
-
-        scheduleNotification();
-      });
-      return;
-    }
-    scheduleNotification();
-  });
-
   console.log("Running cordova-" + cordova.platformId + "@" + cordova.version);
 }

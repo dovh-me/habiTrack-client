@@ -1,6 +1,6 @@
 const config = {
-  baseUrl: "https://urchin-app-qxcfm.ondigitalocean.app/api",
-  // baseUrl: "http://localhost:3000/api",
+  // baseUrl: "https://urchin-app-qxcfm.ondigitalocean.app/api",
+  baseUrl: "http://localhost:3000/api",
 };
 
 export class RequestHandler {
@@ -102,6 +102,16 @@ export class RequestHandler {
     });
   }
 
+  async sendUpdateHabitRequest(habit, habitId) {
+    const route = `habit/${habitId}`;
+    const method = "PATCH";
+
+    return await this.#sendRequest(this.#getUrl(route), true, {
+      method,
+      data: JSON.stringify(habit),
+    });
+  }
+
   async sendUpsertHabitLogRequest(patch) {
     const route = "habit-log/upsert";
     const method = "PATCH";
@@ -120,6 +130,46 @@ export class RequestHandler {
     };
 
     return await this.#sendRequest(this.#getUrl(route, query), true, {
+      method,
+    });
+  }
+
+  async sendCreateAlertRequest(time, habitId) {
+    const route = `alert/${habitId}`;
+    const method = "POST";
+
+    return await this.#sendRequest(this.#getUrl(route), true, {
+      method,
+      data: JSON.stringify({
+        notificationId: Date.now(),
+        time: time,
+      }),
+    });
+  }
+
+  async deleteAlertRequest(alertId) {
+    const route = `alert/${alertId}`;
+    const method = "DELETE";
+
+    return await this.#sendRequest(this.#getUrl(route), true, {
+      method,
+    });
+  }
+
+  async getHabitAlerts(habitId) {
+    const route = `alert/${habitId}`;
+    const method = "GET";
+
+    return await this.#sendRequest(this.#getUrl(route), true, {
+      method,
+    });
+  }
+
+  async getUserAlerts() {
+    const route = `alert/all`;
+    const method = "GET";
+
+    return await this.#sendRequest(this.#getUrl(route), true, {
       method,
     });
   }

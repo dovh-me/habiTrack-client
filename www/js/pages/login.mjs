@@ -23,6 +23,7 @@ export const loginPageHandler = (requestHandler, store, pages) => {
   });
 
   $(pages.login).on("pagebeforeshow", function (e) {
+    validator.resetForm();
     const isAuthenticated = requestHandler.isAuthenticated;
 
     console.log("isAuthenticated", isAuthenticated, store.user);
@@ -59,7 +60,8 @@ export const loginPageHandler = (requestHandler, store, pages) => {
   //----------------
   //----------------
   function registerLoginFormValidator() {
-    const validator = $("#login-form").validate({
+    const loginForm = $("#login-form");
+    const validator = loginForm.validate({
       highlight: function (element, errorClass, validClass) {
         $(element).removeClass(validClass);
         $(element.form)
@@ -99,6 +101,7 @@ export const loginPageHandler = (requestHandler, store, pages) => {
 
           const isSuccess = resultCode === "00047";
           if (isSuccess) {
+            loginForm[0].reset();
             onAuthSuccess();
           }
         })
@@ -124,7 +127,8 @@ export const loginPageHandler = (requestHandler, store, pages) => {
       ? pages.home
       : pages.emailVerification;
 
-    console.log("authSuccess triggered, pageToNavigate", pageToNavigate);
+    // register the notifications
+    document.addEventListener("deviceready", registerNotifications, false);
 
     $.mobile.changePage(pageToNavigate, {
       transition: "fade",
@@ -139,5 +143,27 @@ export const loginPageHandler = (requestHandler, store, pages) => {
       email: emailInput.val(),
       password: passwordInput.val(),
     };
+  }
+
+  async function registerNotifications() {
+    requestHandler
+      .getUserAlerts()
+      .then((result) => {
+        const notificationHandler = store?.notificationHandler;
+        const notifications = result.data ?? [];
+
+        notifications.forEach((notification) => {
+          notificationHandler?.schedule(notification);
+        });
+
+        if (!notificationHandler)
+          throw new Error("NotificationHandler is not initialized properly!");
+      })
+      .catch((error) => {
+        console.error(
+          "There was an error retrieving and registering the user alerts",
+          error
+        );
+      });
   }
 };

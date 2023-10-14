@@ -103,8 +103,29 @@ export const habitSummaryPageHandler = (requestHandler, store, pages) => {
     chart.setOption(options);
   }
 
+  /**
+   *
+   * @param {string} repetition
+   */
+  function getSummaryPeriodText(repetition) {
+    switch (repetition.toLowerCase()) {
+      case "daily":
+        return "Weekly";
+      case "weekly":
+        return "Monthly";
+      case "monthly":
+        return "Yearly";
+      default:
+        return "";
+    }
+  }
+
   function loadFields(summary, habit) {
     const generatedSummary = generateSummary(summary, habit);
+
+    const summaryTitlePeriodField = $(getPageSelector(".summary-duration"));
+    const summaryPeriod = getSummaryPeriodText(habit.repetition);
+    summaryTitlePeriodField.text(summaryPeriod);
 
     const habitNameField = $(getPageSelector(".habit-name"));
     habitNameField.text(habit.name);
@@ -138,8 +159,8 @@ export const habitSummaryPageHandler = (requestHandler, store, pages) => {
     const repetition = repetitionMap[habit.repetition];
     const totalExpected = habit.goal * repetition;
     const totalProgress = summary.reduce((prev, e) => prev + e.progress, 0);
-    const avgExpected = totalExpected / repetition;
-    const avgProgress = totalProgress / repetition;
+    const avgExpected = Math.round(totalExpected / repetition);
+    const avgProgress = Math.round(totalProgress / repetition);
     const streak = "N/A";
 
     return {

@@ -10,16 +10,6 @@ export const homePageHandler = (requestHandler, store, pages) => {
   // const habitsContainerId = "#habit-cards-container";
   const overlayClass = "show-overlay";
   const datepickerSelector = pages["home"] + " .date-picker-field";
-
-  $("#cancel-create-habit-button").on("click", function (e) {
-    e.preventDefault();
-
-    const pageToNavigate = pages.home;
-    $.mobile.changePage(pageToNavigate, {
-      transition: "fade",
-    });
-  });
-
   //----------------
   //----------------
   //----------------
@@ -73,6 +63,7 @@ export const homePageHandler = (requestHandler, store, pages) => {
     requestHandler.getAllHabitsWithLogs(date).then(({ habits }) => {
       loadHabitCards(habits, ".habit-cards-container");
       $(pages["home"]).removeClass(overlayClass);
+
       store.selectedDate = date;
     });
   });
@@ -82,15 +73,30 @@ export const homePageHandler = (requestHandler, store, pages) => {
 
     requestHandler.logout().then(() => {
       // reset the store - no option to remember user credentials when logged out at the moment
+      document.addEventListener("deviceready", cancelUserAlerts, false);
+
       Object.keys(store).forEach((prop) => {
+        const propsToExclude = ["notificationHandler"];
+        if (propsToExclude.includes(prop)) return;
         store[prop] = undefined;
       });
+
       // change the page
       $.mobile.changePage(pages["login"], {
         transition: "fade",
       });
     });
   });
+
+  function cancelUserAlerts() {
+    try {
+      const notificationHandler = store?.notificationHandler;
+      console.log(notificationHandler);
+      notificationHandler.cancelAll();
+    } catch (error) {
+      console.error("There was an error cancelling user alerts", error);
+    }
+  }
 
   //----------------
   //----------------

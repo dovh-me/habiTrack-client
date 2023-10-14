@@ -86,3 +86,10 @@
 .logout-button:focus {
   background-color: rgb(255, 174, 174) !important;
 }
+
+.home-prompt {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}

@@ -79,12 +79,12 @@
             data-role="none"
           />
         </form>
-        <div class="form-text-field">
+        <!-- <div class="form-text-field">
           Temporary link to the verification page
           <a href="#email-verification-page" data-transition="slidefade"
             >Email Verification Page</a
           >
-        </div>
+        </div> -->
       </section>
 
       <footer
@@ -268,6 +268,7 @@
           <button id="logout-button" class="logout-button ui-btn ui-btn-icon-notext ui-icon-custom-logout"></button>
         </div>
       </div>
+      <div class="home-prompt">TIP: Create habits using the + button</div>
       <div class="full-width-datepicker-container">
         <button class="previous-date"></button>
         <div class="date-display">Today</div>
@@ -282,7 +283,8 @@
       </div>
       <!-- content section -->
       <section data-role="main" class="ui-content content-section">
-        <div class="habit-cards-container"></div>
+        <div class="habit-cards-container">
+        </div>
       </section>
 
       <footer
@@ -322,7 +324,7 @@
       </div>
       <!-- content section -->
       <section data-role="main" class="ui-content content-section">
-        <form id="create-habit-form" class="create-habit-form">
+        <form id="create-habit-form" class="custom-form">
           <div class="input-group first-group ui-nodisc-icon">
             <input
               type="color"
@@ -335,7 +337,7 @@
               type="text"
               name="habit-name"
               id="habit-name"
-              class="custom-input habit-name-input"
+              class="habit-name-input"
               data-role="none"
               placeholder="Habit Name*"
             />
@@ -354,7 +356,6 @@
               <option value="bad">Bad Habit</option>
             </select>
           </div>
-          <hr />
           <div id="" class="input-group transparent-select ui-nodisc-icon">
             <span class="target-icon"></span>
             <input
@@ -362,6 +363,7 @@
               name="habit-goal-input"
               id="habit-goal-input"
               data-role="none"
+              placeholder="Goal*"
             />
           </div>
 
@@ -381,7 +383,6 @@
               <option value="hours">Hours</option>
             </select>
           </div>
-          <hr />
 
           <div id="" class="input-group transparent-select ui-nodisc-icon">
             <span class="target-icon"></span>
@@ -398,7 +399,109 @@
               <option value="monthly">Repeats Monthly</option>
             </select>
           </div>
-          <hr />
+        </form>
+        <p>TIP: You can create alerts for habits from the view habit screen.</p>
+      </section>
+
+      <footer
+        data-role="footer"
+        data-position="fixed"
+        data-theme="a"
+        class="custom-footer"
+      >
+        Copyrights &copy; 2023 HabiTrack App
+      </footer>
+    </section>
+    <!-- -- -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!--  -->
+    <!-- edit habit page -->
+    <section data-role="page" id="edit-habit-page" data-theme="a">
+      <div class="header-section">
+        <div class="header-button-container ui-nodisc-icon">
+          <button
+            id="cancel-edit-habit-button"
+            class="ui-btn cancel-button ui-btn ui-icon-custom-cancel ui-btn-icon-notext"
+            data-role="button"
+          ></button>
+        </div>
+        <h2 class="header-text">Edit Habit</h2>
+        <div class="header-button-container">
+          <button
+            id="edit-habit-button"
+            class="primary-btn edit-habit-button"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+      <!-- content section -->
+      <section data-role="main" class="ui-content content-section">
+        <form id="edit-habit-form" class="custom-form">
+          <div class="input-group first-group ui-nodisc-icon">
+            <input
+              type="color"
+              name="habit-color"
+              id="edit-habit-color"
+              class="custom-input color-input"
+              data-role="none"
+            />
+            <input
+              type="text"
+              name="edit-habit-name"
+              id="edit-habit-name"
+              class="habit-name-input"
+              data-role="none"
+              placeholder="Habit Name*"
+            />
+          </div>
+          <div id="" class="input-group transparent-select ui-nodisc-icon">
+            <span class="target-icon"></span>
+            <input
+              type="number"
+              name="edit-habit-goal-input"
+              id="edit-habit-goal-input"
+              data-role="none"
+              placeholder="Goal*"
+            />
+          </div>
+
+          <div id="" class="input-group transparent-select ui-nodisc-icon">
+            <span class="target-icon"></span>
+            <select
+              name="edit-custom-select-habit-goal-unit"
+              id="edit-custom-select-habit-goal-unit"
+              data-native-menu="false"
+              class="ui-nodisc-icon custom-select"
+              data-icon="custom-arrow-down"
+              disabled
+            >
+              <option>Select Goal Unit</option>
+              <option value="times">Times</option>
+              <option value="calories">Calories</option>
+              <option value="minutes">Minutes</option>
+              <option value="hours">Hours</option>
+            </select>
+          </div>
+
+          <div id="" class="input-group transparent-select ui-nodisc-icon">
+            <span class="target-icon"></span>
+            <select
+              name="edit-custom-select-habit-repetition"
+              id="edit-custom-select-habit-repetition"
+              data-native-menu="false"
+              class="ui-nodisc-icon custom-select"
+              data-icon="custom-arrow-down"
+            >
+              <option>Select Repetition</option>
+              <option value="daily">Repeats Daily</option>
+              <option value="weekly">Repeats Weekly</option>
+              <option value="monthly">Repeats Monthly</option>
+            </select>
+          </div>
         </form>
       </section>
 
@@ -419,6 +522,36 @@
     <!--  -->
     <!-- view habit page -->
     <section data-role="page" id="view-habit-page" data-theme="a">
+      <!-- popups -->
+      <div data-role="popup" id="create-alert-dialog" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px;">
+        <div data-role="header" data-theme="a">
+          <h1>Create Alert</h1>
+        </div>
+        <div role="main" class="ui-content">
+          <form action="" class="custom-form">
+            <label for="alert-time-input">Please select a time for the alert</label>
+            <input type="time" name="alert-time-input" id="alert-time-input" data-role="none" step="3600">
+            <button id="cancel-alert-submit" class="cancel-btn ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+            <button role="submit" id="create-alert-submit" class=" primary-btn ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Create</button>
+          </form>
+        </div>
+      </div>
+
+      <div data-role="popup" id="create-alert-dialog" data-overlay-theme="b" data-theme="a" data-dismissible="true" style="max-width:400px;">
+        <div data-role="header" data-theme="a">
+          <h1>Update Alert</h1>
+        </div>
+        <div role="main" class="ui-content">
+          <form action="" class="custom-form">
+            <label for="update-alert-time-input">Please select a time for the alert</label>
+            <input type="time" name="update-alert-time-input" id="update-alert-time-input" data-role="none" step="3600">
+            <button id="cancel-alert-update" class="cancel-btn ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+            <button role="submit" id="update-alert-submit" class=" primary-btn ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Update</button>
+          </form>
+        </div>
+      </div>
+      <!--  -->
+
       <div class="header-section">
         <div class="header-button-container ui-nodisc-icon">
           <button
@@ -430,7 +563,7 @@
         <h2 class="header-text">View Habit</h2>
         <div class="header-button-container ui-nodisc-icon">
           <button
-            id="edit-habit-button"
+            id="edit-habit-page-button"
             class="edit-button ui-btn ui-icon-custom-edit ui-btn-icon-notext"
           >
             Edit
@@ -451,7 +584,7 @@
         />
       </div>
       <!-- content section -->
-      <section data-role="main" class="ui-content content-section">
+      <section data-role="main" class="ui-content content-section ui-nodisc-icon">
         <div class="view-habit-summary">
           <div class="summary-labels">
             <div class="label">Status</div>
@@ -478,6 +611,10 @@
           Complete Progress
         </button>
 
+        <button id="view-progress-button" class="link-btn growth-button ui-btn ui-icon-custom-growth">
+          View Progress
+        </button>
+
         <section class="notes-section">
           <div class="notes-title ui-nodisc-icon">
             <div>Notes</div>
@@ -491,9 +628,20 @@
           <div class="notes-content"></div>
         </section>
 
-        <button id="view-progress-button" class="link-btn">
-          View Progress
-        </button>
+        <section class="alerts-section">
+          <div class="alerts-title ui-nodisc-icon">
+            <div>Alerts</div>
+            <button
+              id="alerts-add-button"
+              class="edit-button ui-btn ui-icon-custom-add ui-btn-icon-notext"
+            >
+              Add Alert
+            </button>
+          </div>
+          <div id="alert-entries" class="alerts-content">
+            <div id="no-alerts-prompt">No Alerts created for the habit! Click the + icon to add one</div>
+          </div>
+        </section>
       </section>
 
       <footer
@@ -539,8 +687,10 @@
       </div>
       <!-- content section -->
       <section data-role="main" class="ui-content content-section">
-        <div class="chart-container"></div>
+        <div class="chart-container">
+        </div>
         <div class="habit-progress-summary">
+          <h2><span class="summary-duration">Placeholder</span> Summary</h2>
           <div class="summary-labels">
             <div class="label">Repetition</div>
             <div class="label">Average Expected</div>
